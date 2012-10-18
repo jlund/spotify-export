@@ -12,16 +12,16 @@ Let's convert a Spotify playlist into plain text!
 
 Running the command on the included test.txt file will produce the following output:
 
-    1. Wildest Moments - Jessie Ware
-    2. The Twist - Frightened Rabbit
-    3. Dark Star - POLIÇA
-    4. Love Get Out Of My Way - Monarchy
-    5. Cookie - The Presets
-    6. Make You Mine - Miami Horror
-    7. Don't Deny Your Heart - Hot Chip
-    8. The Drummer - Niki & The Dove
-    9. Not In Love - Crystal Castles and Robert Smith
-    10. Anyway You Choose To Give It - The Black Ghosts
+    1. Wildest Moments -- Jessie Ware -- Devotion
+    2. The Twist -- Frightened Rabbit -- The Midnight Organ Fight
+    3. Dark Star -- POLIÇA -- Give You The Ghost
+    4. Love Get Out Of My Way -- Monarchy -- Around The Sun
+    5. Cookie -- The Presets -- Down Down Down
+    6. Make You Mine -- Miami Horror -- Bravado
+    7. Don't Deny Your Heart -- Hot Chip -- In Our Heads
+    8. The Drummer -- Niki & The Dove -- Instinct
+    9. Not In Love -- Crystal Castles and Robert Smith -- (II)
+    10. Anyway You Choose To Give It -- The Black Ghosts -- The Black Ghosts
 
 Listening to the songs might be fun too.
 
