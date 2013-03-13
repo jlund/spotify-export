@@ -16,6 +16,11 @@ describe SpotifyTrack do
       playlist = SpotifyPlaylist.new('spec/support/utf8-track.txt')
       playlist.tracks.first.name.should == "Gangnam Style (강남스타일)"
     end
+
+    it "properly retrieves track names that contain the word 'by'" do
+      playlist = SpotifyPlaylist.new('spec/support/by-track.txt')
+      playlist.tracks.first.name.should == "Play by Play"
+    end
   end
 
   describe "#artist" do

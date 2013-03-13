@@ -3,6 +3,7 @@ spotify-export
 
 Changelog
 ---------
+* 1.0.1 -- Fixed a bug where track names containing the word 'by' were not properly exported
 * 1.0
   * Complete rewrite
   * Added Gemfile for Bundler support

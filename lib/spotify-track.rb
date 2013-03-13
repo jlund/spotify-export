@@ -49,14 +49,15 @@ class SpotifyTrack
     response = http.request(request)
     html     = response.body.force_encoding("UTF-8")
 
-    parsed_title_tag  = html.scan(/<title>(.*?) by (.*?) on Spotify<\/title>/).flatten
-    parsed_album_link = html.scan(/<a href=".*?\/album\/.*?">(.*?)<\/a>/).flatten
+    parsed_h1_name_tag = html.scan(/<h1 itemprop="name">(.*)<\/h1>/).flatten
+    parsed_artist_link = html.scan(/<a href="\/artist\/.*?">(.*)<\/a>/).flatten
+    parsed_album_link  = html.scan(/<a href="\/album\/.*?">(.*)<\/a>/).flatten
 
     entities = HTMLEntities.new
 
-    name   =  entities.decode parsed_title_tag[0]
-    artist =  entities.decode parsed_title_tag[1]
-    album  =  entities.decode parsed_album_link[0]
+    name   =  entities.decode(parsed_h1_name_tag.first)
+    artist =  entities.decode(parsed_artist_link.first)
+    album  =  entities.decode(parsed_album_link.first)
 
     cache_track(name, artist, album) unless response.code == "404"
 
