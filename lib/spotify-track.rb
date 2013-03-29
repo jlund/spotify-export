@@ -57,13 +57,13 @@ class SpotifyTrack
     http     = Net::HTTP.new(target.host, target.port)
     request  = Net::HTTP::Get.new(target.request_uri)
     response = http.request(request)
-    json     = JSON.parse( response.body )
+    json     = JSON.parse(response.body)
 
     name   =  json["track"]["name"]
     artist =  format_artists( json["track"]["artists"] )
     album  =  json["track"]["album"]["name"]
 
-    cache_track(name, artist, album) unless response.code == "404"
+    cache_track(name, artist, album) if response.code == "200"
 
     { name: name, artist: artist, album: album } 
   end

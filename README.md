@@ -25,6 +25,12 @@ Listening to the songs might be fun too.
 Enjoy!
 
 
+Features
+--------
+* Lookups are performed using the super-efficient Spotify Web API
+* SQLite is used as a caching layer so that URIs will only be requested once, which allows you to regularly back up large playlists
+
+
 Requirements
 ------------
 * [Ruby](http://www.ruby-lang.org/en/) 1.9.3 (or higher?)
