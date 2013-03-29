@@ -1,5 +1,5 @@
-require 'htmlentities'
 require 'net/http'
+require 'json'
 require_relative 'spotify-cache'
 
 class SpotifyTrack
@@ -28,7 +28,7 @@ class SpotifyTrack
       cache = SpotifyCache.where(uri: uri).first
 
       if cache.blank?
-        get_track_attributes_from_uri
+        get_track_attributes_from_api
       else
         { name: cache[:name], artist: cache[:artist], album: cache[:album] } 
       end
@@ -42,22 +42,26 @@ class SpotifyTrack
                         album: cache_album)
   end
 
-  def get_track_attributes_from_uri
-    target   = URI.parse(uri)
+  def format_artists(artists)
+    artist_list = []
+
+    artists.each do |artist|
+      artist_list << artist["name"]
+    end
+
+    artist_list.join(", ")
+  end
+
+  def get_track_attributes_from_api
+    target   = URI.parse("http://ws.spotify.com/lookup/1/.json?uri=#{ uri }")
     http     = Net::HTTP.new(target.host, target.port)
     request  = Net::HTTP::Get.new(target.request_uri)
     response = http.request(request)
-    html     = response.body.force_encoding("UTF-8")
+    json     = JSON.parse( response.body )
 
-    parsed_h1_name_tag = html.scan(/<h1 itemprop="name">(.*)<\/h1>/).flatten
-    parsed_artist_link = html.scan(/<a href="\/artist\/.*?">(.*)<\/a>/).flatten
-    parsed_album_link  = html.scan(/<a href="\/album\/.*?">(.*)<\/a>/).flatten
-
-    entities = HTMLEntities.new
-
-    name   =  entities.decode(parsed_h1_name_tag.first)
-    artist =  entities.decode(parsed_artist_link.first)
-    album  =  entities.decode(parsed_album_link.first)
+    name   =  json["track"]["name"]
+    artist =  format_artists( json["track"]["artists"] )
+    album  =  json["track"]["album"]["name"]
 
     cache_track(name, artist, album) unless response.code == "404"
 
