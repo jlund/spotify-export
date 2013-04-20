@@ -17,10 +17,6 @@ class SpotifyPlaylist
   end
 
   def tracks
-    [].tap do |track_list|
-      export_targets.each do |track_uri|
-        track_list << SpotifyTrack.new(track_uri)
-      end
-    end
+    export_targets.map{ |track_uri| SpotifyTrack.new(track_uri) }
   end
 end
