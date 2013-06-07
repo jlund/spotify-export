@@ -29,7 +29,7 @@ class SpotifyTrack
       cache = SpotifyCache.where(uri: uri).first
 
       if cache.blank?
-        get_track_attributes_from_api
+        get_track_attributes
       else
         { name: cache[:name], artist: cache[:artist], album: cache[:album] } 
       end
@@ -53,7 +53,7 @@ class SpotifyTrack
     artist_list.join(", ")
   end
 
-  def get_track_attributes_from_api
+  def get_track_attributes
     if local
       # The array should be length 6
       # ["spotify", "local", "artist", "album", "song title", "duration"]

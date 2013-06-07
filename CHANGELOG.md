@@ -1,5 +1,12 @@
+#### 1.2
+* Added support for playlists that contain Local Files (contributed by Christopher Nguyen)
+* Changed the way that the SQLite database is handled
+  * Your personal track cache is now ignored by git
+  * For new users, the repository contains a database template file that spotify-export will copy to the proper location if it doesn't already exist
+  * **Current users who would like to merge these changes will need to temporarily move their SQLite cache file elsewhere, checkout the original version, pull the latest commits, and then move their database back.** Git will otherwise complain about merge conflicts. I sincerely apologize for the hassle; I really should have done it this way from the very beginning (thanks to Christopher Nguyen for this insight as well).
+
 #### 1.1
-* Requests are now made using the [Spotify Web API](http://developer.spotify.com/technologies/web-api/).
+* Requests are now made using the [Spotify Web API](http://developer.spotify.com/technologies/web-api/)
   * Spotify URIs have replaced HTTP Links. **Please see the updated instructions.**
   * This also, unfortunately, will invalidate your existing cache. But it's worth it!
 * Bandwidth usage has been drastically reduced

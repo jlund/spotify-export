@@ -17,6 +17,11 @@ describe SpotifyTrack do
       track.name.should == "Gangnam Style (강남스타일)"
     end
 
+    it "properly handles local files" do
+      track = SpotifyPlaylist.new('spec/support/local-track.txt').tracks.first
+      track.name.should == "Life On Mars?"
+    end
+
     it "properly retrieves track names that contain the word 'by'" do
       track = SpotifyPlaylist.new('spec/support/by-track.txt').tracks.first
       track.name.should == "Play by Play"
