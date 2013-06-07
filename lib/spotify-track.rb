@@ -3,9 +3,10 @@ require 'json'
 require_relative 'spotify-cache'
 
 class SpotifyTrack
-  attr_reader :uri
+  attr_reader :uri, :local
 
   def initialize(uri)
+    @local = uri.include? ':local:'
     @uri = uri
   end
 
@@ -53,17 +54,26 @@ class SpotifyTrack
   end
 
   def get_track_attributes_from_api
-    target   = URI.parse("http://ws.spotify.com/lookup/1/.json?uri=#{ uri }")
-    http     = Net::HTTP.new(target.host, target.port)
-    request  = Net::HTTP::Get.new(target.request_uri)
-    response = http.request(request)
-    json     = JSON.parse(response.body)
+    if local
+      # The array should be length 6
+      # ["spotify", "local", "artist", "album", "song title", "duration"]
+      uriArr = uri.split(':')
+      name   = URI.decode(uriArr[4].gsub('+', ' '))
+      album  = URI.decode(uriArr[3].gsub('+', ' '))
+      artist = URI.decode(uriArr[2].gsub('+', ' '))
+    else
+      target   = URI.parse("http://ws.spotify.com/lookup/1/.json?uri=#{ uri }")
+      http     = Net::HTTP.new(target.host, target.port)
+      request  = Net::HTTP::Get.new(target.request_uri)
+      response = http.request(request)
+      json     = JSON.parse(response.body)
 
-    name   =  json["track"]["name"]
-    artist =  format_artists( json["track"]["artists"] )
-    album  =  json["track"]["album"]["name"]
+      name   =  json["track"]["name"]
+      artist =  format_artists( json["track"]["artists"] )
+      album  =  json["track"]["album"]["name"]
 
-    cache_track(name, artist, album) if response.code == "200"
+      cache_track(name, artist, album) if response.code == "200"
+    end
 
     { name: name, artist: artist, album: album } 
   end
