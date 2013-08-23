@@ -2,6 +2,7 @@
 
 require 'bundler/setup'
 require 'fileutils'
+require 'ruby-progressbar'
 require_relative '../lib/spotify-playlist'
 
 # Copy the template SQLite file for new users, unless it
@@ -11,11 +12,17 @@ unless File.exist?("#{ ROOT }/db/spotify-cache.db")
                "#{ ROOT }/db/spotify-cache.db")
 end
 
-playlist = SpotifyPlaylist.new(ARGV.first)
+output      = String.new
+playlist    = SpotifyPlaylist.new(ARGV.first)
+progressbar = ProgressBar.create(format: "%t: %c/%C |%B|",
+                                 total: playlist.tracks.size)
 
 playlist.tracks.each_with_index do |track, count|
   # Sanity check
   unless track.nil?
-    puts "#{count + 1}. #{ track.name } -- #{ track.artist } -- #{ track.album }"
+    output << "#{count + 1}. #{ track.name } -- #{ track.artist } -- #{ track.album }\n"
+    progressbar.increment
   end
 end
+
+puts output

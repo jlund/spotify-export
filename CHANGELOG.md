@@ -1,3 +1,9 @@
+#### 1.3
+* A lovely progress bar is now included
+* Spotify API errors are handled more gracefully
+  * "502 Bad Gateway" responses will no longer cause the program to crash
+  * Failed requests are automatically retried after five seconds
+
 #### 1.2
 * Added support for playlists that contain Local Files (contributed by Christopher Nguyen)
 * Changed the way that the SQLite database is handled

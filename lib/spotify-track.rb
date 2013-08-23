@@ -3,11 +3,11 @@ require 'json'
 require_relative 'spotify-cache'
 
 class SpotifyTrack
-  attr_reader :uri, :local
+  attr_reader :local, :uri
 
   def initialize(uri)
     @local = uri.include? ':local:'
-    @uri = uri
+    @uri   = uri
   end
 
   def album
@@ -62,11 +62,18 @@ class SpotifyTrack
       album  = URI.decode(uriArr[3].gsub('+', ' '))
       artist = URI.decode(uriArr[2].gsub('+', ' '))
     else
-      target   = URI.parse("http://ws.spotify.com/lookup/1/.json?uri=#{ uri }")
-      http     = Net::HTTP.new(target.host, target.port)
-      request  = Net::HTTP::Get.new(target.request_uri)
-      response = http.request(request)
-      json     = JSON.parse(response.body)
+      target  = URI.parse("http://ws.spotify.com/lookup/1/.json?uri=#{ uri }")
+      http    = Net::HTTP.new(target.host, target.port)
+      request = Net::HTTP::Get.new(target.request_uri)
+
+      begin
+        response = http.request(request)
+        json     = JSON.parse(response.body)
+      rescue Errno::ECONNREFUSED, JSON::ParserError
+        puts "Spotify API error. Retrying in five seconds..."
+        sleep 5
+        retry
+      end
 
       name   =  json["track"]["name"]
       artist =  format_artists( json["track"]["artists"] )
