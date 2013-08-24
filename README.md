@@ -33,7 +33,7 @@ Features
 
 Requirements
 ------------
-* [Ruby](http://www.ruby-lang.org/en/) 1.9.3 (or higher?)
+* [Ruby](http://www.ruby-lang.org/en/) 1.9.3 or 2.0.0
 * [Bundler](http://gembundler.com/)
 * [ActiveRecord](https://github.com/rails/rails/tree/master/activerecord)
 * [RSpec](http://rspec.info/)
@@ -44,11 +44,6 @@ Requirements
 Setup
 -----
 * bundle install
-
-
-Caveats
--------
-* I haven't tried this on Ruby 2.0 yet.
 
 
 Acknowledgments
