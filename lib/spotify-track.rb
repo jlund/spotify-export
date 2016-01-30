@@ -1,4 +1,4 @@
-require 'net/http'
+require 'net/https'
 require 'json'
 require_relative 'spotify-cache'
 
@@ -54,16 +54,19 @@ class SpotifyTrack
   end
 
   def get_track_attributes
+    uriArr = uri.split(':')
     if local
       # The array should be length 6
       # ["spotify", "local", "artist", "album", "song title", "duration"]
-      uriArr = uri.split(':')
       name   = URI.decode(uriArr[4].gsub('+', ' '))
       album  = URI.decode(uriArr[3].gsub('+', ' '))
       artist = URI.decode(uriArr[2].gsub('+', ' '))
     else
-      target  = URI.parse("http://ws.spotify.com/lookup/1/.json?uri=#{ uri }")
+      track_id = uriArr[2]
+      target  = URI.parse("https://api.spotify.com/v1/tracks/#{ track_id }")
       http    = Net::HTTP.new(target.host, target.port)
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       request = Net::HTTP::Get.new(target.request_uri)
 
       begin
@@ -75,10 +78,9 @@ class SpotifyTrack
         retry
       end
 
-      name   =  json["track"]["name"]
-      artist =  format_artists( json["track"]["artists"] )
-      album  =  json["track"]["album"]["name"]
-
+      name   =  json["name"]
+      artist =  format_artists( json["artists"] )
+      album  =  json["album"]["name"]
       cache_track(name, artist, album) if response.code == "200"
     end
 
