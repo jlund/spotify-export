@@ -5,14 +5,14 @@ Description
 -----------
 Let's convert a Spotify playlist into plain text!
 
-1. Open Spotify and go to the playlist that you want to export
-2. Select the tracks that you want to export (Ctrl-A or Cmd-A to Select All)
-3. Right-click on the selected tracks and choose "Copy Spotify URI" from the menu
-4. Go to the text editor of your choice and Paste
-5. Save the file
-6. Run ./bin/spotify-export.rb your-filename.txt
+1. Open Spotify and go to the playlist that you want to export.
+2. Select the tracks that you want to export (Ctrl-A or Cmd-A to Select All).
+3. Right-click on the selected tracks and choose "Copy Spotify URI" from the menu.
+4. Go to the text editor of your choice and Paste.
+5. Save the file.
+6. Run `./bin/spotify-export.rb your-filename.txt`.
 
-Running the command on the included spec/support/multiple-tracks.txt test file will produce the following output:
+Running the command on the included `spec/support/multiple-tracks.txt` test file will produce the following output:
 
     1. Illusions -- Shout Out Louds -- Optica (Bonus Track Version)
     2. My Number -- Foals -- Holy Fire
@@ -27,8 +27,8 @@ Enjoy!
 
 Features
 --------
-* Lookups are performed using the super-efficient Spotify Web API
-* SQLite is used as a caching layer so that URIs will only be requested once, which allows you to regularly back up large playlists
+* Lookups are performed using the super-efficient [Spotify Web API](https://developer.spotify.com/web-api/).
+* SQLite is used as a caching layer so that information about each track will only be requested once, which allows you to regularly back up large playlists.
 
 
 Requirements
@@ -43,7 +43,7 @@ Requirements
 
 Setup
 -----
-* bundle install
+* `bundle install`
 
 
 Acknowledgments
