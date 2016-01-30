@@ -40,7 +40,7 @@ describe SpotifyTrack do
 
     it "should return all track artists if there are several" do
       track = SpotifyPlaylist.new('spec/support/multiple-artist-track.txt').tracks.first
-      track.artist.should == "Big Boi, B.o.B., Wavves"
+      track.artist.should == "Big Boi, B.o.B, Wavves"
     end
   end
 
