@@ -33,7 +33,7 @@ Features
 
 Requirements
 ------------
-* [Ruby](http://www.ruby-lang.org/en/) 1.9.3 or 2.0.0
+* [Ruby](http://www.ruby-lang.org/en/) 2.1 or higher
 * [Bundler](http://gembundler.com/)
 * [ActiveRecord](https://github.com/rails/rails/tree/master/activerecord)
 * [RSpec](http://rspec.info/)
