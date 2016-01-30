@@ -21,11 +21,11 @@ describe SpotifyPlaylist do
 
   describe "#tracks" do
     it "returns an array" do
-      playlist.tracks.class.should equal Array
+      expect(playlist.tracks.class).to equal Array
     end
 
     it "contains SpotifyTrack objects" do
-      playlist.tracks.first.class.should equal SpotifyTrack
+      expect(playlist.tracks.first.class).to equal SpotifyTrack
     end
   end
 
