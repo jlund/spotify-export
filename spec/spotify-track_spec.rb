@@ -22,6 +22,11 @@ describe SpotifyTrack do
       expect(track.name).to eq("Life On Mars?")
     end
 
+    it "properly handles Song Link URLs (e.g. non-Spotify-URI tracks)" do
+      track = SpotifyPlaylist.new('spec/support/song-link-track.txt').tracks.first
+      expect(track.name).to eq("8 (circle)")
+    end
+
     it "properly retrieves track names that contain the word 'by'" do
       track = SpotifyPlaylist.new('spec/support/by-track.txt').tracks.first
       expect(track.name).to eq("Play by Play")

@@ -54,19 +54,19 @@ class SpotifyTrack
   end
 
   def get_track_attributes
-    uriArr = uri.split(':')
     if local
+      local_array = uri.split(':')
+
       # The array should be length 6
       # ["spotify", "local", "artist", "album", "song title", "duration"]
-      name   = URI.decode(uriArr[4].gsub('+', ' '))
-      album  = URI.decode(uriArr[3].gsub('+', ' '))
-      artist = URI.decode(uriArr[2].gsub('+', ' '))
+      name   = URI.decode(local_array[4].gsub('+', ' '))
+      album  = URI.decode(local_array[3].gsub('+', ' '))
+      artist = URI.decode(local_array[2].gsub('+', ' '))
     else
-      track_id = uriArr[2]
+      track_id = uri[/^.+track(:|\/)(.+)$/, 2]
       target  = URI.parse("https://api.spotify.com/v1/tracks/#{ track_id }")
       http    = Net::HTTP.new(target.host, target.port)
       http.use_ssl = true
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       request = Net::HTTP::Get.new(target.request_uri)
 
       begin
