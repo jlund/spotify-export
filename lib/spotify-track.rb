@@ -63,7 +63,7 @@ class SpotifyTrack
       album  = URI.decode(local_array[3].gsub('+', ' '))
       artist = URI.decode(local_array[2].gsub('+', ' '))
     else
-      track_id = uri[/track(:|\/)(.+)/, 2]
+      track_id = uri[/^.+track(:|\/)(.+)$/, 2]
       target  = URI.parse("https://api.spotify.com/v1/tracks/#{ track_id }")
       http    = Net::HTTP.new(target.host, target.port)
       http.use_ssl = true
