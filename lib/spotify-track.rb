@@ -46,7 +46,7 @@ class SpotifyTrack
   def format_artists(artists)
     artist_list = []
 
-    artists.each do |artist|
+    artist.each do |artist|
       artist_list << artist["name"]
     end
 
