@@ -7,7 +7,7 @@ Let's convert a Spotify playlist into plain text!
 
 1. Open Spotify and go to the playlist that you want to export.
 2. Select the tracks that you want to export (Ctrl-A or Cmd-A to Select All).
-3. Right-click on the selected tracks and choose "Copy Spotify URI" from the menu.
+3. Press `Ctrl+Shift+C` (or `Command+Shift+C` on macOS) to bulk-copy the Spotify URIs.
 4. Go to the text editor of your choice and Paste.
 5. Save the file.
 6. Run `./bin/spotify-export.rb your-filename.txt`.
